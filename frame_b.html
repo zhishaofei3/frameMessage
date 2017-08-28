@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+B
+<button>发送给frame_a</button>
+<div id="msg"></div>
+<script src="jquery.js"></script>
+<script>
+  $(function () {
+    var $msg = $("#msg")
+
+    window.addEventListener('message', receiveMessage)
+    function receiveMessage(e) {
+      $msg.html("B收到了: " + e.data)
+    }
+
+
+    var $btn = $('button'),
+      frameA = window.parent.frames.frame_a.contentWindow,
+      count = 0
+    $btn.click(function () {
+      frameA.postMessage('消息' + ++count, '*')
+    })
+
+  })
+</script>
+</body>
+</html>
